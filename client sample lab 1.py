@@ -1,4 +1,4 @@
-import socket, keyboard
+import socket, keyboard, time
 from time import *
 
 #bfbfbf
@@ -117,33 +117,40 @@ def stopDrive():
 
 
 #run forever and control robot
+timePassed = 0
 while keyboard.is_pressed == 'w' or keyboard.is_pressed == 'a' or keyboard.is_pressed == 's' or keyboard.is_pressed == 'd':
     key = keyboard.read_key()
     if key == 'w':
         print('Drive forward')
         driveForward()
+        timePassed++
 
     elif key == 'a':
         print('Drive left')
         #turn left
         spinLeft()
+        timePassed++
     
     elif key == 's':
         print('Drive backward')
         driveBackward()
+        timePassed++
 
     elif key == 'd':
         print('Drive right')
         #turn right
         spinRight()
+        timePassed++
     
     elif not keyboard.is_pressed == 'm' :
         print('Stop')
         stopDrive()
+        timePassed++
 
 while not keyboard.is_pressed == 'm':
     print('Stopped')
     stopDrive()
+    timePassed = 0
 """
 
 sock.sendall("a battery_charge".encode())
