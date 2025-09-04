@@ -92,7 +92,7 @@ sleep(8)
 remote control done, just tinkering
 methods to make it easier to read the while loop
 """
-
+"""
 def driveForward():
     sock.sendall("a drive_straight(100)".encode()) 
     print(sock.recv(128).decode())   
@@ -144,7 +144,7 @@ while keyboard.is_pressed == 'w' or keyboard.is_pressed == 'a' or keyboard.is_pr
 while not keyboard.is_pressed == 'm':
     print('Stopped')
     stopDrive()
-
+"""
 
 sock.sendall("a battery_charge".encode())
 print("Battery charge is: ",sock.recv(128).decode())
