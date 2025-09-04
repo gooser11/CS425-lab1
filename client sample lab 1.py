@@ -49,7 +49,7 @@ def square():
 square()
 
 """
-
+"""
 # find interior angle of polygon
 def angle(sides):
     if sides < 3:
@@ -74,6 +74,7 @@ def polygon(N):
 
 mySides = int(input("Number of sides: "))
 polygon(mySides)
+"""
 
 # plays song of storms
 # works
@@ -114,6 +115,11 @@ def stopDrive():
     sock.sendall("a drive_straight(0)".encode())    
     print(sock.recv(128).decode())
 
+if __name__ == "__main__":
+    # creating processes
+    df = multiprocessing.Process(target=driveForward, args=(10, ))
+    sl = multiprocessing.Process(target=spinLeft, args=(10, ))
+    sr = multiprocessing.Process(target=spinRight, args=(10, ))
 
 #run forever and control robot
 timePassed = 50 #value that will be passed as velocity to change speed dynmically
@@ -144,17 +150,26 @@ while keyboard.is_pressed == 'w' or keyboard.is_pressed == 'a' or keyboard.is_pr
     elif key == 'q':
         print('Strafe left')
         #process 1
-        driveForward()
+        df.start()
         #process 2
-        spinLeft()
+        sl.start()
+
+        df.join()
+        sl.join()
+        print("Strafed!")
 
 
     elif key == 'e':
         print('Strafe right')
         #process 1
-        driveForward()
+        df.start()
         #process 2
-        spinRight()
+        sr.start()
+
+        df.join()
+        sr.join()
+        print("Strafed!")
+
 
 """
     elif not keyboard.is_pressed == 'm' :
