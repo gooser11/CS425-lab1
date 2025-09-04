@@ -69,7 +69,7 @@ def driveForward():
 def driveBackward():
     sock.sendall("a drive_straight(-100)".encode()) 
     print(sock.recv(128).decode())   
-    sleep(1.5)    
+    #sleep(1.5)    
 
 def spinLeft():
     sock.sendall("a spin_left(100)".encode())    
@@ -78,6 +78,11 @@ def spinLeft():
 def spinRight():
     sock.sendall("a spin_right(100)".encode())    
     print(sock.recv(128).decode())
+
+def stopDrive():
+    sock.sendall("a drive_straight(0)".encode())    
+    print(sock.recv(128).decode())
+
 
 # run forever and control robot
 while True:
@@ -90,27 +95,20 @@ while True:
         print('Drive left')
         # turn left
         spinLeft()
-        sleep(1.5)
-        # go
-        driveForward()
-        #return to original position
-        spinRight()
-        sleep(1.5)
     
     elif key == 's':
         print('Drive backward')
         driveBackward()
-    
+
     elif key == 'd':
         print('Drive right')
         # turn right
         spinRight()
-        sleep(1.5)
-        # go
-        driveForward()
-        # return to original positon
-        spinLeft()
-        sleep(1.5)
+    
+    elif key == 'q' :
+        print('Stop')
+        stopDrive()
+
 
 sock.sendall("a battery_charge".encode())
 print("Battery charge is: ",sock.recv(128).decode())
