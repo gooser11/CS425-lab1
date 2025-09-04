@@ -76,23 +76,8 @@ mySides = int(input("Number of sides: "))
 polygon(mySides)
 """
 
-# plays song of storms
-# works
-"""
-sock.sendall("a set_song(1, [[62,32],[65,32],[63,32],[62,32],[65,32],[63,32]] )".encode())    
-print(sock.recv(128).decode())
+#methods to make it easier to read the while loop
 
-sock.sendall("a play_song(1)".encode())  
-print(sock.recv(128).decode())
-sleep(8)
-
-"""
-
-
-"""
-remote control done, just tinkering
-methods to make it easier to read the while loop
-"""
 def driveForward():
     sock.sendall("a drive_straight(100)".encode()) 
     print(sock.recv(128).decode())   
@@ -115,6 +100,49 @@ def stopDrive():
     sock.sendall("a drive_straight(0)".encode())    
     print(sock.recv(128).decode())
 
+
+# plays song of storms
+# works
+
+sock.sendall("a set_song(1, [[62,32],[65,32],[63,32],[62,32],[65,32],[63,32]] )".encode())    
+print(sock.recv(128).decode())
+
+# method to play song
+def song():
+    sock.sendall("a play_song(1)".encode())  
+    print(sock.recv(128).decode())
+    sleep(8)
+# a little dance
+def lildance():
+    spinRight()
+    sleep(3)
+    spinLeft()
+    sleep(3)
+    for i in range(3):
+        driveForward()
+        sleep(0.2)
+        driveBackward()
+        sleep(0.2)
+
+if __name__ == "__main__":
+    # creating processes
+    sing = multiprocessing.Process(target=driveForward, args=(10, ))
+    dance = multiprocessing.Process(target=spinLeft, args=(10, ))
+
+    #process 1
+    sing.start()
+    #process 2
+    dance.start()
+
+    sing.join()
+    dance.join()
+    print("Strafed!")
+
+
+
+#remote control done, just tinkering
+
+"""
 if __name__ == "__main__":
     # creating processes
     df = multiprocessing.Process(target=driveForward, args=(10, ))
@@ -171,17 +199,17 @@ while keyboard.is_pressed == 'w' or keyboard.is_pressed == 'a' or keyboard.is_pr
         print("Strafed!")
 
 
-"""
+
     elif not keyboard.is_pressed == 'm' :
         print('Stop')
         stopDrive()
         timePassed = 0
-"""
+
 while not keyboard.is_pressed == 'm':
     print('Stopped')
     stopDrive()
     timePassed = 50
-
+"""
 
 sock.sendall("a battery_charge".encode())
 print("Battery charge is: ",sock.recv(128).decode())
