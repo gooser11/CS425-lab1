@@ -34,7 +34,7 @@ print(sock.recv(128).decode())
     You may wish to extend the control_server.py on the raspberry pi.
 """
 
-
+# works
 """
 # method that runs roomba in square
 def square():
@@ -50,6 +50,7 @@ square()
 """
 
 # plays song of storms
+# works
 """
 sock.sendall("a set_song(1, [[62,32],[65,32],[63,32],[62,32],[65,32],[63,32]] )".encode())    
 print(sock.recv(128).decode())
@@ -60,6 +61,7 @@ sleep(8)
 
 """
 
+# remote control - in progress
 # methods to make it easier to read the while loop
 def driveForward():
     sock.sendall("a drive_straight(100)".encode()) 
