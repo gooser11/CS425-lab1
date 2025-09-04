@@ -1,4 +1,4 @@
-import socket, keyboard, time
+import socket, keyboard, multiprocessing
 from time import *
 
 #bfbfbf
@@ -92,7 +92,6 @@ sleep(8)
 remote control done, just tinkering
 methods to make it easier to read the while loop
 """
-"""
 def driveForward():
     sock.sendall("a drive_straight(100)".encode()) 
     print(sock.recv(128).decode())   
@@ -117,41 +116,57 @@ def stopDrive():
 
 
 #run forever and control robot
-timePassed = 0
+timePassed = 50
 while keyboard.is_pressed == 'w' or keyboard.is_pressed == 'a' or keyboard.is_pressed == 's' or keyboard.is_pressed == 'd':
     key = keyboard.read_key()
     if key == 'w':
         print('Drive forward')
         driveForward()
-        timePassed++
+        timePassed += 1
 
     elif key == 'a':
         print('Drive left')
         #turn left
         spinLeft()
-        timePassed++
+        timePassed += 1
     
     elif key == 's':
         print('Drive backward')
         driveBackward()
-        timePassed++
+        timePassed += 1
 
     elif key == 'd':
         print('Drive right')
         #turn right
         spinRight()
-        timePassed++
+        timePassed += 1
     
+    elif key == 'q':
+        print('Strafe left')
+        #process 1
+        driveForward()
+        #process 2
+        spinLeft()
+
+
+    elif key == 'e':
+        print('Strafe right')
+        #process 1
+        driveForward()
+        #process 2
+        spinRight()
+
+"""
     elif not keyboard.is_pressed == 'm' :
         print('Stop')
         stopDrive()
-        timePassed++
-
+        timePassed = 0
+"""
 while not keyboard.is_pressed == 'm':
     print('Stopped')
     stopDrive()
-    timePassed = 0
-"""
+    timePassed = 50
+
 
 sock.sendall("a battery_charge".encode())
 print("Battery charge is: ",sock.recv(128).decode())
