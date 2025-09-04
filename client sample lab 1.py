@@ -89,17 +89,19 @@ sleep(8)
 
 
 """
-# remote control - in progress
-# methods to make it easier to read the while loop
+remote control done, just tinkering
+methods to make it easier to read the while loop
+"""
+
 def driveForward():
     sock.sendall("a drive_straight(100)".encode()) 
     print(sock.recv(128).decode())   
-    #sleep(1.5)
+    sleep(1.5)
 
 def driveBackward():
     sock.sendall("a drive_straight(-100)".encode()) 
     print(sock.recv(128).decode())   
-    #sleep(1.5)    
+    sleep(1.5)    
 
 def spinLeft():
     sock.sendall("a spin_left(100)".encode())    
@@ -114,9 +116,8 @@ def stopDrive():
     print(sock.recv(128).decode())
 
 
-#works
-# run forever and control robot
-while True:
+#run forever and control robot
+while keyboard.is_pressed == 'w' or keyboard.is_pressed == 'a' or keyboard.is_pressed == 's' or keyboard.is_pressed == 'd':
     key = keyboard.read_key()
     if key == 'w':
         print('Drive forward')
@@ -124,7 +125,7 @@ while True:
 
     elif key == 'a':
         print('Drive left')
-        # turn left
+        #turn left
         spinLeft()
     
     elif key == 's':
@@ -133,7 +134,7 @@ while True:
 
     elif key == 'd':
         print('Drive right')
-        # turn right
+        #turn right
         spinRight()
     
     elif not keyboard.is_pressed == 'm' :
@@ -143,7 +144,7 @@ while True:
 while not keyboard.is_pressed == 'm':
     print('Stopped')
     stopDrive()
-"""
+
 
 sock.sendall("a battery_charge".encode())
 print("Battery charge is: ",sock.recv(128).decode())
