@@ -114,6 +114,7 @@ def stopDrive():
     print(sock.recv(128).decode())
 
 
+#works
 # run forever and control robot
 while True:
     key = keyboard.read_key()
@@ -135,10 +136,13 @@ while True:
         # turn right
         spinRight()
     
-    elif key == 'q' :
+    elif not keyboard.is_pressed == 'm' :
         print('Stop')
         stopDrive()
 
+while not keyboard.is_pressed == 'm':
+    print('Stopped')
+    stopDrive()
 """
 
 sock.sendall("a battery_charge".encode())
