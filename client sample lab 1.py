@@ -47,7 +47,33 @@ def square():
         #sock.sendall("a drive_straight(100)".encode())
 # run square
 square()
+
 """
+
+# find interior angle of polygon
+def angle(sides):
+    if sides < 3:
+        raise ValueError("Sides must be more than 2!")
+    return (sides - 2) * 180 / sides
+
+# drive in polygon
+def polygon(N):
+    theta = angle(N)
+    print("Angle: ", theta)
+    print("Time: ", (1.5 / 90) * theta)
+
+    for i in range(N):
+        sock.sendall("a drive_straight(100)".encode())
+        print(sock.recv(128).decode())
+        sleep(2)
+        print("TURN!!!")
+        sock.sendall("a spin_right(100)".encode())
+        print(sock.recv(128).decode())
+        sleep((1.5 / 90) * (180 - theta))
+
+
+mySides = int(input("Number of sides: "))
+polygon(mySides)
 
 # plays song of storms
 # works
@@ -61,6 +87,8 @@ sleep(8)
 
 """
 
+
+"""
 # remote control - in progress
 # methods to make it easier to read the while loop
 def driveForward():
@@ -111,6 +139,7 @@ while True:
         print('Stop')
         stopDrive()
 
+"""
 
 sock.sendall("a battery_charge".encode())
 print("Battery charge is: ",sock.recv(128).decode())
