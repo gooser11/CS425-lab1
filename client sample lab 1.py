@@ -116,7 +116,7 @@ def stopDrive():
 
 
 #run forever and control robot
-timePassed = 50
+timePassed = 50 #value that will be passed as velocity to change speed dynmically
 while keyboard.is_pressed == 'w' or keyboard.is_pressed == 'a' or keyboard.is_pressed == 's' or keyboard.is_pressed == 'd':
     key = keyboard.read_key()
     if key == 'w':
