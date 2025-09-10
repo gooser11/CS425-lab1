@@ -50,7 +50,9 @@ square()
 
 """
 
+# polygon(N), works
 # find interior angle of polygon
+"""
 def angle(sides):
     if sides < 3:
         raise ValueError("Sides must be more than 2!")
@@ -74,6 +76,7 @@ def polygon(N):
 
 mySides = int(input("Number of sides: "))
 polygon(mySides)
+"""
 
 # plays song of storms
 # works
@@ -88,7 +91,7 @@ sleep(8)
 """
 
 
-"""
+
 # remote control - in progress
 # methods to make it easier to read the while loop
 def driveForward():
@@ -109,11 +112,11 @@ def spinRight():
     sock.sendall("a spin_right(100)".encode())    
     print(sock.recv(128).decode())
 
-def stopDrive():
+def stopDrive(event=None):
     sock.sendall("a drive_straight(0)".encode())    
     print(sock.recv(128).decode())
 
-
+"""
 # run forever and control robot
 while True:
     key = keyboard.read_key()
@@ -138,8 +141,20 @@ while True:
     elif key == 'q' :
         print('Stop')
         stopDrive()
-
 """
+
+# Adds inputs for WASD, calls functions
+keyboard.add_hotkey('w', driveForward)
+keyboard.add_hotkey('s', driveBackward)
+keyboard.add_hotkey('a', spinLeft)
+keyboard.add_hotkey('d', spinRight)
+
+# when any key is released, stop drive
+keyboard.on_release(stopDrive)
+
+# runs until exit
+keyboard.wait('esc')
+
 
 sock.sendall("a battery_charge".encode())
 print("Battery charge is: ",sock.recv(128).decode())
