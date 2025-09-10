@@ -97,12 +97,10 @@ sleep(8)
 def driveForward():
     sock.sendall("a drive_straight(100)".encode()) 
     print(sock.recv(128).decode())   
-    #sleep(1.5)
 
 def driveBackward():
     sock.sendall("a drive_straight(-100)".encode()) 
-    print(sock.recv(128).decode())   
-    #sleep(1.5)    
+    print(sock.recv(128).decode())       
 
 def spinLeft():
     sock.sendall("a spin_left(100)".encode())    
@@ -112,48 +110,32 @@ def spinRight():
     sock.sendall("a spin_right(100)".encode())    
     print(sock.recv(128).decode())
 
+def strafeLeft():
+    sock.sendall("a drive_direct(100, 50)".encode())
+    print(sock.recv(128).decode())
+
+def strafeRight():
+    sock.sendall("a drive_direct(50, 100)".encode())
+    print(sock.recv(128).decode())
+
 def stopDrive(event=None):
     sock.sendall("a drive_straight(0)".encode())    
     print(sock.recv(128).decode())
-
-"""
-# run forever and control robot
-while True:
-    key = keyboard.read_key()
-    if key == 'w':
-        print('Drive forward')
-        driveForward()
-
-    elif key == 'a':
-        print('Drive left')
-        # turn left
-        spinLeft()
-    
-    elif key == 's':
-        print('Drive backward')
-        driveBackward()
-
-    elif key == 'd':
-        print('Drive right')
-        # turn right
-        spinRight()
-    
-    elif key == 'q' :
-        print('Stop')
-        stopDrive()
-"""
 
 # Adds inputs for WASD, calls functions
 keyboard.add_hotkey('w', driveForward)
 keyboard.add_hotkey('s', driveBackward)
 keyboard.add_hotkey('a', spinLeft)
 keyboard.add_hotkey('d', spinRight)
+keyboard.add_hotkey('w+a', strafeLeft)
+keyboard.add_hotkey('w+d', strafeRight)
 
 # when any key is released, stop drive
 keyboard.on_release(stopDrive)
 
 # runs until exit
 keyboard.wait('esc')
+
 
 
 sock.sendall("a battery_charge".encode())
