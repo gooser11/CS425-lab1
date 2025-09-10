@@ -50,42 +50,53 @@ square()
 
 """
 
-# find interior angle of polygon
-def angle(sides):
-    if sides < 3:
-        raise ValueError("Sides must be more than 2!")
-    return (sides - 2) * 180 / sides
+# # find interior angle of polygon
+# def angle(sides):
+#     if sides < 3:
+#         raise ValueError("Sides must be more than 2!")
+#     return (sides - 2) * 180 / sides
 
-# drive in polygon
-def polygon(N):
-    theta = angle(N)
-    print("Angle: ", theta)
-    print("Time: ", (1.5 / 90) * theta)
+# # drive in polygon
+# def polygon(N):
+#     theta = angle(N)
+#     print("Angle: ", theta)
+#     print("Time: ", (1.5 / 90) * theta)
 
-    for i in range(N):
-        sock.sendall("a drive_straight(100)".encode())
-        print(sock.recv(128).decode())
-        sleep(2)
-        print("TURN!!!")
-        sock.sendall("a spin_right(100)".encode())
-        print(sock.recv(128).decode())
-        sleep((1.5 / 90) * (180 - theta))
+#     for i in range(N):
+#         sock.sendall("a drive_straight(100)".encode())
+#         print(sock.recv(128).decode())
+#         sleep(2)
+#         print("TURN!!!")
+#         sock.sendall("a spin_right(100)".encode())
+#         print(sock.recv(128).decode())
+#         sleep((1.5 / 90) * (180 - theta))
 
 
-mySides = int(input("Number of sides: "))
-polygon(mySides)
+# mySides = int(input("Number of sides: "))
+# polygon(mySides)
 
-# plays song of storms
+# plays song of storms while dancing
 # works
-"""
+
 sock.sendall("a set_song(1, [[62,32],[65,32],[63,32],[62,32],[65,32],[63,32]] )".encode())    
 print(sock.recv(128).decode())
 
+# Start playing
 sock.sendall("a play_song(1)".encode())  
-print(sock.recv(128).decode())
-sleep(8)
 
-"""
+# While song is playing, make it dance
+sock.sendall("a drive_straight(100)".encode())   # forward
+sleep(2)
+
+sock.sendall("a spin_right(100)".encode())       # spin right
+sleep(1.5)
+
+sock.sendall("a play_song(1)".encode())  
+sock.sendall("a drive_straight(-100)".encode())  # backward
+sleep(2)
+
+sock.sendall("a spin_right(-100)".encode())      # spin left
+sleep(1.5)
 
 
 """
